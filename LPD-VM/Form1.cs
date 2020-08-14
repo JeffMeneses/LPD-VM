@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using LPD_VM.FileHandler;
 
 namespace LPD_VM
 {
@@ -26,9 +25,23 @@ namespace LPD_VM
 
         private void abrirArquivoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AssemblyFile assemblyFile = new AssemblyFile();
-            assemblyFile.openAssemblyFile();
-            assemblyFile.readFile(assemblyFile.name);
+            OpenFileDialog fd1 = new OpenFileDialog();
+            fd1.Filter = "Text File Only|*.txt";
+
+            String fname = "";
+
+            if(fd1.ShowDialog().Equals(DialogResult.OK))
+            {
+                fname = fd1.FileName;
+                MessageBox.Show(fname);
+            }
+
+            List<string> lines = File.ReadAllLines(fname).ToList();
+            foreach (var line in lines)
+            {
+                //string[] entries = line.Split(',')
+                Console.WriteLine(line);
+            }
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -54,11 +67,6 @@ namespace LPD_VM
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
 
-        }
-
-        private void sairToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-               
         }
     }
 }
