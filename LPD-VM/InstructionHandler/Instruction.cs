@@ -8,7 +8,7 @@ namespace LPD_VM.InstructionHandler
 {
     public class Instruction
     {
-        static List<string> labels;
+        public static List<string> labels = new List<string>();
 
         public string command;
         public string attribute1;
@@ -30,14 +30,15 @@ namespace LPD_VM.InstructionHandler
         {
             List<Instruction> instructionArray = new List<Instruction>();
             string newLine;
-            command = null;
-            attribute1 = null;
-            attribute2 = null;
 
             foreach (var line in assemblyProgram)
             {
                 Instruction instruction = new Instruction();
                 newLine = FixSpacing(line);
+
+                command = null;
+                attribute1 = null;
+                attribute2 = null;
 
                 string[] words = newLine.Split();
                 if (newLine[0].Equals(' '))
@@ -45,6 +46,11 @@ namespace LPD_VM.InstructionHandler
                     command = words[1];
                     if (words.Length > 2) attribute1 = words[2];
                     if (words.Length > 3) attribute2 = words[4];
+                }
+                else
+                {
+                    labels.Add(words[0]);
+                    command = words[1];
                 }
                 instructionArray.Add(new Instruction(this.command = command, this.attribute1 = attribute1, this.attribute2 = attribute2));
             }

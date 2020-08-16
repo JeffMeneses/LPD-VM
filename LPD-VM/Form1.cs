@@ -29,12 +29,21 @@ namespace LPD_VM
         {
             AssemblyFile assemblyFile = new AssemblyFile();
             Instruction instruction = new Instruction();
+            List<Instruction> instructionArray = new List<Instruction>();
 
             List<string> assemblyProgram;
 
             assemblyFile.openAssemblyFile();
             assemblyProgram = assemblyFile.readFile(assemblyFile.name);
-            instruction.intructionParser(assemblyProgram);
+            instructionArray = instruction.intructionParser(assemblyProgram);
+
+            foreach (var i in instructionArray)
+            {
+                int n = dataGridView1.Rows.Add();
+                dataGridView1.Rows[n].Cells[0].Value = i.command;
+                dataGridView1.Rows[n].Cells[1].Value = i.attribute1;
+                dataGridView1.Rows[n].Cells[2].Value = i.attribute2;
+            }
 
         }
 
