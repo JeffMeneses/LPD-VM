@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using LPD_VM.FileHandler;
+using LPD_VM.InstructionHandler;
 
 namespace LPD_VM
 {
@@ -27,8 +28,23 @@ namespace LPD_VM
         private void abrirArquivoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AssemblyFile assemblyFile = new AssemblyFile();
+            Instruction instruction = new Instruction();
+            List<Instruction> instructionArray = new List<Instruction>();
+
+            List<string> assemblyProgram;
+
             assemblyFile.openAssemblyFile();
-            assemblyFile.readFile(assemblyFile.name);
+            assemblyProgram = assemblyFile.readFile(assemblyFile.name);
+            instructionArray = instruction.intructionParser(assemblyProgram);
+
+            foreach (var i in instructionArray)
+            {
+                int n = dataGridView1.Rows.Add();
+                dataGridView1.Rows[n].Cells[0].Value = i.command;
+                dataGridView1.Rows[n].Cells[1].Value = i.attribute1;
+                dataGridView1.Rows[n].Cells[2].Value = i.attribute2;
+            }
+
         }
 
         private void label2_Click(object sender, EventArgs e)
