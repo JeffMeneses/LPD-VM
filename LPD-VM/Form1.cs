@@ -10,11 +10,14 @@ using System.Windows.Forms;
 using System.IO;
 using LPD_VM.FileHandler;
 using LPD_VM.InstructionHandler;
+using LPD_VM.VirtualMachineHandler;
 
 namespace LPD_VM
 {
     public partial class Form1 : Form
     {
+        VirtualMachine virtualMachine = new VirtualMachine();
+
         public Form1()
         {
             InitializeComponent();
@@ -27,22 +30,16 @@ namespace LPD_VM
 
         private void abrirArquivoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AssemblyFile assemblyFile = new AssemblyFile();
-            Instruction instruction = new Instruction();
-            List<Instruction> instructionArray = new List<Instruction>();
+            
+            virtualMachine.openFile();
 
-            List<string> assemblyProgram;
-
-            assemblyFile.openAssemblyFile();
-            assemblyProgram = assemblyFile.readFile(assemblyFile.name);
-            instructionArray = instruction.intructionParser(assemblyProgram);
-
-            foreach (var i in instructionArray)
+            foreach (var i in virtualMachine.P)
             {
                 int n = dataGridView1.Rows.Add();
-                dataGridView1.Rows[n].Cells[0].Value = i.command;
-                dataGridView1.Rows[n].Cells[1].Value = i.attribute1;
-                dataGridView1.Rows[n].Cells[2].Value = i.attribute2;
+                dataGridView1.Rows[n].Cells[0].Value = n;
+                dataGridView1.Rows[n].Cells[1].Value = i.command;
+                dataGridView1.Rows[n].Cells[2].Value = i.attribute1;
+                dataGridView1.Rows[n].Cells[3].Value = i.attribute2;
             }
 
         }
@@ -75,6 +72,49 @@ namespace LPD_VM
         private void sairToolStripMenuItem_Click(object sender, EventArgs e)
         {
                
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel6_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void executarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach(var i in virtualMachine.P)
+            {
+                virtualMachine.runCommand(i);
+            }
         }
     }
 }

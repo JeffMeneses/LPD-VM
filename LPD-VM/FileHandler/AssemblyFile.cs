@@ -28,10 +28,6 @@ namespace LPD_VM.FileHandler
         public List<string> readFile(string fname)
         {
             List<string> lines = File.ReadAllLines(fname).ToList();
-            //foreach (var line in lines)
-            //{
-            //    Console.WriteLine(line);
-            //}
             return lines;
         }
     }
