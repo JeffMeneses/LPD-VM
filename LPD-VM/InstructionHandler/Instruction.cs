@@ -57,6 +57,25 @@ namespace LPD_VM.InstructionHandler
             return instructionArray;
         }
 
+        public void parseInstruction(string assemblyInstruction)
+        {
+            string newLine;
+            newLine = FixSpacing(assemblyInstruction);
+
+            string[] words = newLine.Split();
+            if (newLine[0].Equals(' '))
+            {
+                command = words[1];
+                if (words.Length > 2) attribute1 = words[2];
+                if (words.Length > 3) attribute2 = words[4];
+            }
+            else
+            {
+                labels.Add(words[0]);
+                command = words[1];
+            }
+        }
+
         public string FixSpacing(string line)
         {
 
