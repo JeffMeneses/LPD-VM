@@ -18,3 +18,5 @@ C:\Users\jeffe\Desktop\Compiladores\LPD-VM\LPD-VM\obj\Debug\LPD-VM.pdb
 C:\Users\jeffe\Desktop\Compiladores\LPD-VM\LPD-VM\bin\Debug\LPD-VM.exe.config
 C:\Users\jeffe\Desktop\Compiladores\LPD-VM\LPD-VM\bin\Debug\LPD-VM.exe
 C:\Users\jeffe\Desktop\Compiladores\LPD-VM\LPD-VM\bin\Debug\LPD-VM.pdb
+C:\Users\biaan\LPD-VM\LPD-VM\obj\Debug\LPD-VM.exe
+C:\Users\biaan\LPD-VM\LPD-VM\obj\Debug\LPD-VM.pdb
