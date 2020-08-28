@@ -32,18 +32,32 @@ namespace LPD_VM.VirtualMachineHandler
         public void parseInstructions(List<string> assemblyProgram)
         {
             List<Instruction> instructionArray = new List<Instruction>();
-
+            int i = 0;
             foreach (var line in assemblyProgram)
             {
                 Instruction instruction = new Instruction();
-                instruction.parseInstruction(line);
+                instruction.parseInstruction(line, i);
                 P.Add(instruction);
+                i++;
+            }
+            setLabelNumbers();
+        }
+
+        public void setLabelNumbers()
+        {
+            foreach(var instruction in P)
+            {
+                if (instruction.command == "JMP" || instruction.command == "JMPF" || instruction.command == "CALL")
+                {
+                    instruction.attribute1 = instruction.getLabelNumber(instruction.attribute1).ToString();
+                }
             }
         }
 
-        public void runCommand(Instruction instruction)
+        public int runCommand(Instruction instruction, int RD_PRN_flag = 0)
         {
-            switch(instruction.command)
+            int print = 0;
+            switch (instruction.command)
             {
                 case "LDC":
                     s = s + 1;
@@ -176,27 +190,23 @@ namespace LPD_VM.VirtualMachineHandler
                     //  M[s] = "próximo valor de entrada"
                     break;
                 case "PRN":
-                    //imprimir M[s]
+                    RD_PRN_flag = 1;
+                    print = M[s];
                     s = s - 1;
                     break;
                 case "ALLOC":
-                    //int m = Int32.Parse(instruction.attribute1);
-                    //int n = Int32.Parse(instruction.attribute2);
                     for(int k = 0; k < Int32.Parse(instruction.attribute2); k++){
                         s=s+1;
                          M[s] = M[Int32.Parse(instruction.attribute1) + k];                        
                     }
                     break;
                 case "DALLOC":
-                    //int m = Int32.Parse(instruction.attribute1);
-                    //int n = Int32.Parse(instruction.attribute2);
                     for (int k = Int32.Parse(instruction.attribute2) - 1; k > 0; k--){
                         M[Int32.Parse(instruction.attribute1) + k] = M[s];
                         s = s - 1;
                     }
                     break;
                 case "CALL":
-                    //int t = instruction.attribute1;
                     s = s + 1;
                     M[s] = i;
                     i = Int32.Parse(instruction.attribute1);
@@ -206,6 +216,8 @@ namespace LPD_VM.VirtualMachineHandler
                     s = s-1;
                     break;
             }
+            if (RD_PRN_flag == 0) return 0;
+            else return print;
         }
     }
 }
