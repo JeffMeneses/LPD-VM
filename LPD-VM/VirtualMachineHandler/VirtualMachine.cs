@@ -11,7 +11,6 @@ namespace LPD_VM.VirtualMachineHandler
     class VirtualMachine
     {
         public List<Instruction> P = new List<Instruction>();
-        //public List<int> M = new List<int>(50);
         public int[] M = new int[50];
         public int i = 0;
         public int s = 0;
@@ -54,9 +53,9 @@ namespace LPD_VM.VirtualMachineHandler
             }
         }
 
-        public int runCommand(Instruction instruction, int RD_PRN_flag = 0)
+        public int runCommand(Instruction instruction, int input = 0)
         {
-            int print = 0;
+            int print = 0, RD_PRN_flag = 0;
             switch (instruction.command)
             {
                 case "LDC":
@@ -79,7 +78,7 @@ namespace LPD_VM.VirtualMachineHandler
                     M[s - 1] = M[s - 1] * M[s];
                     s = s - 1;
                     break;
-                case "DIV":
+                case "DIVI":
                     M[s - 1] = M[s - 1] / M[s];
                     s = s - 1;
                     break;
@@ -166,6 +165,7 @@ namespace LPD_VM.VirtualMachineHandler
                     break;
                 case "HLT":
                     // TODO: Forçar parada do programa
+                    return -1;
                     break;
                 case "STR":
                     M[Int32.Parse(instruction.attribute1)] = M[s];
@@ -179,7 +179,7 @@ namespace LPD_VM.VirtualMachineHandler
                         i = Int32.Parse(instruction.attribute1);
                     }
                     else{
-                        i = i + 1;
+                        //i = i + 1;
                         s = s - 1;
                     }
                     break;
@@ -187,6 +187,7 @@ namespace LPD_VM.VirtualMachineHandler
                     break;
                 case "RD":
                     s= s + 1;
+                    M[s] = input;
                     //  M[s] = "próximo valor de entrada"
                     break;
                 case "PRN":
@@ -216,7 +217,9 @@ namespace LPD_VM.VirtualMachineHandler
                     s = s-1;
                     break;
             }
-            if (RD_PRN_flag == 0) return 0;
+
+            if(instruction.command != "CALL") i++;
+                if (RD_PRN_flag == 0) return 0;
             else return print;
         }
     }
