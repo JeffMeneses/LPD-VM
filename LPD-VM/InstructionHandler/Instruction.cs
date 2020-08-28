@@ -8,8 +8,9 @@ namespace LPD_VM.InstructionHandler
 {
     public class Instruction
     {
-        public static List<string> labels = new List<string>();
-
+        //public static List<string> labels = new List<string>();
+        public static List<Label> labels = new List<Label>();
+        public int i;
         public string command;
         public string attribute1;
         public string attribute2;
@@ -19,50 +20,21 @@ namespace LPD_VM.InstructionHandler
             
         }
 
-        public Instruction(string command, string attribute1, string attribute2)
+        public Instruction(int i, string command, string attribute1, string attribute2)
         {
             this.command = command;
             this.attribute1 = attribute1;
             this.attribute2 = attribute2;
         }
 
-        public List<Instruction> intructionParser(List<string> assemblyProgram)
-        {
-            List<Instruction> instructionArray = new List<Instruction>();
-            string newLine;
-
-            foreach (var line in assemblyProgram)
-            {
-                Instruction instruction = new Instruction();
-                newLine = FixSpacing(line);
-
-                command = null;
-                attribute1 = null;
-                attribute2 = null;
-
-                string[] words = newLine.Split();
-                if (newLine[0].Equals(' '))
-                {
-                    command = words[1];
-                    if (words.Length > 2) attribute1 = words[2];
-                    if (words.Length > 3) attribute2 = words[4];
-                }
-                else
-                {
-                    labels.Add(words[0]);
-                    command = words[1];
-                }
-                instructionArray.Add(new Instruction(this.command = command, this.attribute1 = attribute1, this.attribute2 = attribute2));
-            }
-            return instructionArray;
-        }
-
-        public void parseInstruction(string assemblyInstruction)
+        public void parseInstruction(string assemblyInstruction, int i)
         {
             string newLine;
             newLine = FixSpacing(assemblyInstruction);
 
             string[] words = newLine.Split();
+
+            this.i = i;
             if (newLine[0].Equals(' '))
             {
                 command = words[1];
@@ -71,9 +43,11 @@ namespace LPD_VM.InstructionHandler
             }
             else
             {
-                labels.Add(words[0]);
+                labels.Add(new Label(words[0], i));
                 command = words[1];
+                //attribute1 = i;
             }
+
         }
 
         public string FixSpacing(string line)
@@ -87,5 +61,16 @@ namespace LPD_VM.InstructionHandler
             newLine = newLine.Replace(",", " ");
             return newLine;
         }
+
+        public int getLabelNumber(String labelName)
+        {
+            foreach(var label in labels)
+            {
+                if (label.name == labelName) return label.i;
+            }
+
+            return -1;
+        }
+
     }
 }

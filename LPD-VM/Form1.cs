@@ -11,6 +11,7 @@ using System.IO;
 using LPD_VM.FileHandler;
 using LPD_VM.InstructionHandler;
 using LPD_VM.VirtualMachineHandler;
+using Microsoft.VisualBasic;
 
 namespace LPD_VM
 {
@@ -111,9 +112,24 @@ namespace LPD_VM
 
         private void executarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach(var i in virtualMachine.P)
+            int print = 0;
+            while(true)
             {
-                virtualMachine.runCommand(i);
+                if(virtualMachine.P[virtualMachine.i].command == "RD")
+                {
+                    int input = Int32.Parse(Interaction.InputBox("Prompt", "Title", ""));
+                    print = virtualMachine.runCommand(virtualMachine.P[virtualMachine.i], input);
+                }
+                else
+                {
+                    print = virtualMachine.runCommand(virtualMachine.P[virtualMachine.i]);
+                    if (print == -1) break;
+
+                    if (print != 0)
+                    {
+                        textBox2.Text += " " + print.ToString();
+                    }
+                }  
             }
         }
     }
