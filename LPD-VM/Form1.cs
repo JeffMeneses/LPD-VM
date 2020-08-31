@@ -31,7 +31,7 @@ namespace LPD_VM
 
         private void abrirArquivoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
             virtualMachine.openFile();
 
             foreach (var i in virtualMachine.P)
@@ -72,7 +72,7 @@ namespace LPD_VM
 
         private void sairToolStripMenuItem_Click(object sender, EventArgs e)
         {
-               
+
         }
 
         private void panel3_Paint(object sender, PaintEventArgs e)
@@ -81,11 +81,6 @@ namespace LPD_VM
         }
 
         private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
         {
 
         }
@@ -113,24 +108,58 @@ namespace LPD_VM
         private void executarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int print = 0;
-            while(true)
+            while (true)
             {
-                if(virtualMachine.P[virtualMachine.i].command == "RD")
+                if (virtualMachine.P[virtualMachine.i].command == "RD")
                 {
                     int input = Int32.Parse(Interaction.InputBox("Prompt", "Title", ""));
-                    print = virtualMachine.runCommand(virtualMachine.P[virtualMachine.i], input);
+
+                    if (virtualMachine.debugBP(virtualMachine.P[virtualMachine.i]) == 0)
+                    {
+                        print = virtualMachine.runCommand(virtualMachine.P[virtualMachine.i], input);
+                    }
+                    else
+                    {
+                        
+                    }
+
                 }
                 else
                 {
-                    print = virtualMachine.runCommand(virtualMachine.P[virtualMachine.i]);
-                    if (print == -1) break;
-
-                    if (print != 0)
+                    if (virtualMachine.debugBP(virtualMachine.P[virtualMachine.i]) == 0)
                     {
-                        textBox2.Text += " " + print.ToString();
+                        print = virtualMachine.runCommand(virtualMachine.P[virtualMachine.i]);
+
+                        if (print == -1) break;
+
+                        if (print != 0)
+                        {
+                            textBox2.Text += " " + print.ToString();
+                        }
                     }
-                }  
+                    else
+                    {
+                        
+                    }
+                }
             }
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e) //breakPoint
+        {
+
+        }
+        private void button1_Click(object sender, EventArgs e) //debug
+        {
+           
+        }
+
+        private void button3_Click(object sender, EventArgs e) //ok bp
+        {
+            int numero = Int32.Parse(textBox3.Text);
+            virtualMachine.createBreakPoint(numero);
+            MessageBox.Show("BreakPoint criado com sucesso!", "Confirmação");
+            textBox3.Text = "";
         }
     }
 }
