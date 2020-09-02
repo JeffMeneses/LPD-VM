@@ -241,9 +241,9 @@ namespace LPD_VM.VirtualMachineHandler
                     break;
             }
             */
-            if (instruction.command != "CALL") i++;
-            if (RD_PRN_flag == 0) return 0;
-            else return print;
+           /* if (instruction.command != "CALL")*/ i++;
+           /* if (RD_PRN_flag == 0) return 0;
+            else */return print;
         }
 
         public void createBreakPoint(int number)
@@ -264,14 +264,16 @@ namespace LPD_VM.VirtualMachineHandler
                 {
                     if (instruction.i >= bp.number_instruction)
                     {
-                        return 1;
+                        if (instruction.command == "HLT")
+                        {
+                            breakPointArray.Remove(bp);
+                            return 2;
+                        }
+                        else
+                        {
+                            return 1;
+                        }
                     }
-                    
-                    if (instruction.command == "HLT")
-                    {
-                        breakPointArray.Remove(bp);
-                        return 0;
-                    }                  
                     
                 }                
             }

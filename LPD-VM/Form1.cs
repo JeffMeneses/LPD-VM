@@ -164,6 +164,9 @@ namespace LPD_VM
         private void button1_Click(object sender, EventArgs e) //debug
         {
             int print = 0;
+            int linha = dataGridView1.CurrentCell.RowIndex;
+            int n = dataGridView2.Rows.Add();
+
             if (flag == 1)
             {
                 if (virtualMachine.P[virtualMachine.i].command == "RD")
@@ -186,28 +189,44 @@ namespace LPD_VM
                     }
                 }
             }
-            
-            //
-            int n = dataGridView2.Rows.Add();
-            dataGridView2.Rows[n].Cells[0].Value = virtualMachine.s;
-            dataGridView2.Rows[n].Cells[1].Value = virtualMachine.i;
 
-            // selecionar as linhas conforme a execução
-            int linha = dataGridView1.CurrentCell.RowIndex;
-            linha += 1;
-            dataGridView1.CurrentCell = dataGridView1.Rows[linha].Cells[0];
-            dataGridView1.Rows[linha].Selected = true;
+            if (virtualMachine.P[virtualMachine.i].command != "HLT")
+            {
+                //
+                dataGridView2.Rows[n].Cells[0].Value = virtualMachine.s;
+                dataGridView2.Rows[n].Cells[1].Value = virtualMachine.i;
 
+                // selecionar as linhas conforme a execução              
+                linha = virtualMachine.i;
+                dataGridView1.CurrentCell = dataGridView1.Rows[linha].Cells[0];
+                dataGridView1.Rows[linha].Selected = true;
+            }
+            else
+            {
+                linha = virtualMachine.i -1;
+                dataGridView1.Rows[linha].Selected = false;
+                if (virtualMachine.debugBP(virtualMachine.P[virtualMachine.i]) == 2)
+                {
+                    MessageBox.Show("Depuração terminada, BreakPoint retirado com sucesso!", "AVISO");
+                }
+            }
 
 
         }
 
         private void button3_Click(object sender, EventArgs e) //ok bp
         {
+
+            int linha = dataGridView1.CurrentCell.RowIndex;
             int numero = Int32.Parse(textBox3.Text);
+
             virtualMachine.createBreakPoint(numero);
             MessageBox.Show("BreakPoint criado com sucesso!", "Confirmação");
             textBox3.Text = "";
+           
+            linha = numero;
+            dataGridView1.CurrentCell = dataGridView1.Rows[linha].Cells[0];
+            dataGridView1.Rows[linha].Selected = true;
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e) //painel pilha
