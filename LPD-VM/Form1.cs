@@ -18,6 +18,7 @@ namespace LPD_VM
     public partial class Form1 : Form
     {
         VirtualMachine virtualMachine = new VirtualMachine();
+        int flag;
 
         public Form1()
         {
@@ -47,12 +48,12 @@ namespace LPD_VM
 
         private void label2_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -108,8 +109,11 @@ namespace LPD_VM
         private void executarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int print = 0;
+
             while (true)
             {
+                flag = 0;
+
                 if (virtualMachine.P[virtualMachine.i].command == "RD")
                 {
                     int input = Int32.Parse(Interaction.InputBox("Prompt", "Title", ""));
@@ -120,7 +124,8 @@ namespace LPD_VM
                     }
                     else
                     {
-                        
+                        flag = 1;
+                        break;
                     }
 
                 }
@@ -139,10 +144,17 @@ namespace LPD_VM
                     }
                     else
                     {
-                        
+                        flag = 1;
+                        break;
                     }
                 }
             }
+
+            if(flag == 1)
+            {
+                MessageBox.Show("Aperte o botão de DEBUG para começar a depuração!", "AVISO");
+            }
+
         }
 
         private void textBox3_TextChanged(object sender, EventArgs e) //breakPoint
@@ -151,7 +163,43 @@ namespace LPD_VM
         }
         private void button1_Click(object sender, EventArgs e) //debug
         {
-           
+            int print = 0;
+            if (flag == 1)
+            {
+                if (virtualMachine.P[virtualMachine.i].command == "RD")
+                {
+                    int input = Int32.Parse(Interaction.InputBox("Prompt", "Title", ""));
+                    print = virtualMachine.runCommand(virtualMachine.P[virtualMachine.i], input);
+
+
+
+                }
+                else
+                {
+                    print = virtualMachine.runCommand(virtualMachine.P[virtualMachine.i]);
+
+                    if (print == -1) return;
+
+                    if (print != 0)
+                    {
+                        textBox2.Text += " " + print.ToString();
+                    }
+                }
+            }
+            
+            //
+            int n = dataGridView2.Rows.Add();
+            dataGridView2.Rows[n].Cells[0].Value = virtualMachine.s;
+            dataGridView2.Rows[n].Cells[1].Value = virtualMachine.i;
+
+            // selecionar as linhas conforme a execução
+            int linha = dataGridView1.CurrentCell.RowIndex;
+            linha += 1;
+            dataGridView1.CurrentCell = dataGridView1.Rows[linha].Cells[0];
+            dataGridView1.Rows[linha].Selected = true;
+
+
+
         }
 
         private void button3_Click(object sender, EventArgs e) //ok bp
@@ -160,6 +208,12 @@ namespace LPD_VM
             virtualMachine.createBreakPoint(numero);
             MessageBox.Show("BreakPoint criado com sucesso!", "Confirmação");
             textBox3.Text = "";
+        }
+
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e) //painel pilha
+        {
+
+
         }
     }
 }

@@ -59,7 +59,7 @@ namespace LPD_VM.VirtualMachineHandler
         public int runCommand(Instruction instruction, int input = 0)
         {
             int print = 0, RD_PRN_flag = 0;
-            switch (instruction.command)
+            /*switch (instruction.command)
             {
                 case "LDC":
                     s = s + 1;
@@ -240,7 +240,7 @@ namespace LPD_VM.VirtualMachineHandler
                     s = s - 1;
                     break;
             }
-
+            */
             if (instruction.command != "CALL") i++;
             if (RD_PRN_flag == 0) return 0;
             else return print;
