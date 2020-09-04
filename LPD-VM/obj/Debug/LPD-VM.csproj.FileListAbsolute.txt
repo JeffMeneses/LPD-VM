@@ -20,3 +20,11 @@ C:\Users\jeffe\Desktop\Compiladores\LPD-VM\LPD-VM\bin\Debug\LPD-VM.exe
 C:\Users\jeffe\Desktop\Compiladores\LPD-VM\LPD-VM\bin\Debug\LPD-VM.pdb
 C:\Users\biaan\LPD-VM\LPD-VM\obj\Debug\LPD-VM.exe
 C:\Users\biaan\LPD-VM\LPD-VM\obj\Debug\LPD-VM.pdb
+C:\Users\biaan\LPD-VM\LPD-VM\bin\Debug\LPD-VM.exe.config
+C:\Users\biaan\LPD-VM\LPD-VM\bin\Debug\LPD-VM.exe
+C:\Users\biaan\LPD-VM\LPD-VM\bin\Debug\LPD-VM.pdb
+C:\Users\biaan\LPD-VM\LPD-VM\obj\Debug\LPD-VM.csprojAssemblyReference.cache
+C:\Users\biaan\LPD-VM\LPD-VM\obj\Debug\LPD_VM.Form1.resources
+C:\Users\biaan\LPD-VM\LPD-VM\obj\Debug\LPD_VM.Properties.Resources.resources
+C:\Users\biaan\LPD-VM\LPD-VM\obj\Debug\LPD-VM.csproj.GenerateResource.cache
+C:\Users\biaan\LPD-VM\LPD-VM\obj\Debug\LPD-VM.csproj.CoreCompileInputs.cache

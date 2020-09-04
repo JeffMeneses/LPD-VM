@@ -18,6 +18,7 @@ namespace LPD_VM
     public partial class Form1 : Form
     {
         VirtualMachine virtualMachine = new VirtualMachine();
+        int flag;
 
         public Form1()
         {
@@ -31,7 +32,7 @@ namespace LPD_VM
 
         private void abrirArquivoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
             virtualMachine.openFile();
 
             foreach (var i in virtualMachine.P)
@@ -47,12 +48,12 @@ namespace LPD_VM
 
         private void label2_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -72,7 +73,7 @@ namespace LPD_VM
 
         private void sairToolStripMenuItem_Click(object sender, EventArgs e)
         {
-               
+
         }
 
         private void panel3_Paint(object sender, PaintEventArgs e)
@@ -81,11 +82,6 @@ namespace LPD_VM
         }
 
         private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
         {
 
         }
@@ -113,24 +109,130 @@ namespace LPD_VM
         private void executarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int print = 0;
-            while(true)
+
+            while (true)
             {
-                if(virtualMachine.P[virtualMachine.i].command == "RD")
+                flag = 0;
+
+                if (virtualMachine.P[virtualMachine.i].command == "RD")
+                {
+                    int input = Int32.Parse(Interaction.InputBox("Prompt", "Title", ""));
+
+                    if (virtualMachine.debugBP(virtualMachine.P[virtualMachine.i]) == 0)
+                    {
+                        print = virtualMachine.runCommand(virtualMachine.P[virtualMachine.i], input);
+                    }
+                    else
+                    {
+                        flag = 1;
+                        break;
+                    }
+
+                }
+                else
+                {
+                    if (virtualMachine.debugBP(virtualMachine.P[virtualMachine.i]) == 0)
+                    {
+                        print = virtualMachine.runCommand(virtualMachine.P[virtualMachine.i]);
+
+                        if (print == -1) break;
+
+                        if (print != 0)
+                        {
+                            textBox2.Text += " " + print.ToString();
+                        }
+                    }
+                    else
+                    {
+                        flag = 1;
+                        break;
+                    }
+                }
+            }
+
+            if(flag == 1)
+            {
+                MessageBox.Show("Aperte o botão de DEBUG para começar a depuração!", "AVISO");
+            }
+
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e) //breakPoint
+        {
+
+        }
+        private void button1_Click(object sender, EventArgs e) //debug
+        {
+            int print = 0;
+            int linha = dataGridView1.CurrentCell.RowIndex;
+            int n = dataGridView2.Rows.Add();
+
+            if (flag == 1)
+            {
+                if (virtualMachine.P[virtualMachine.i].command == "RD")
                 {
                     int input = Int32.Parse(Interaction.InputBox("Prompt", "Title", ""));
                     print = virtualMachine.runCommand(virtualMachine.P[virtualMachine.i], input);
+
+
+
                 }
                 else
                 {
                     print = virtualMachine.runCommand(virtualMachine.P[virtualMachine.i]);
-                    if (print == -1) break;
+
+                    if (print == -1) return;
 
                     if (print != 0)
                     {
                         textBox2.Text += " " + print.ToString();
                     }
-                }  
+                }
             }
+
+            if (virtualMachine.P[virtualMachine.i].command != "HLT")
+            {
+                //
+                dataGridView2.Rows[n].Cells[0].Value = virtualMachine.s;
+                dataGridView2.Rows[n].Cells[1].Value = virtualMachine.i;
+
+                // selecionar as linhas conforme a execução              
+                linha = virtualMachine.i;
+                dataGridView1.CurrentCell = dataGridView1.Rows[linha].Cells[0];
+                dataGridView1.Rows[linha].Selected = true;
+            }
+            else
+            {
+                linha = virtualMachine.i -1;
+                dataGridView1.Rows[linha].Selected = false;
+                if (virtualMachine.debugBP(virtualMachine.P[virtualMachine.i]) == 2)
+                {
+                    MessageBox.Show("Depuração terminada, BreakPoint retirado com sucesso!", "AVISO");
+                }
+            }
+
+
+        }
+
+        private void button3_Click(object sender, EventArgs e) //ok bp
+        {
+
+            int linha = dataGridView1.CurrentCell.RowIndex;
+            int numero = Int32.Parse(textBox3.Text);
+
+            virtualMachine.createBreakPoint(numero);
+            MessageBox.Show("BreakPoint criado com sucesso!", "Confirmação");
+            textBox3.Text = "";
+           
+            linha = numero;
+            dataGridView1.CurrentCell = dataGridView1.Rows[linha].Cells[0];
+            dataGridView1.Rows[linha].Selected = true;
+        }
+
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e) //painel pilha
+        {
+
+
         }
     }
 }
