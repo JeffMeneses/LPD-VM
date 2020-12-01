@@ -240,9 +240,9 @@ namespace LPD_VM.VirtualMachineHandler
                     s = s - 1;
                     break;
             }
-            
-            if (instruction.command != "CALL") i++;
-            if (RD_PRN_flag == 0) return 0;
+
+            if (instruction.command != "JMPF" && instruction.command != "CALL" && instruction.command != "JMP" && instruction.command != "RETURN") i++;
+            if (RD_PRN_flag == 0) return -2;
             else return print;
         }
 
