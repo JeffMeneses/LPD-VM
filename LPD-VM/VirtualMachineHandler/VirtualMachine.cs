@@ -59,7 +59,7 @@ namespace LPD_VM.VirtualMachineHandler
         public int runCommand(Instruction instruction, int input = 0)
         {
             int print = 0, RD_PRN_flag = 0;
-            /*switch (instruction.command)
+            switch (instruction.command)
             {
                 case "LDC":
                     s = s + 1;
@@ -96,8 +96,8 @@ namespace LPD_VM.VirtualMachineHandler
                     else
                     {
                         M[s - 1] = 0;
-                        s = s - 1;
                     }
+                    s = s - 1;
                     break;
                 case "OR":
                     if (M[s - 1] == 1 || M[s] == 1)
@@ -107,8 +107,8 @@ namespace LPD_VM.VirtualMachineHandler
                     else
                     {
                         M[s - 1] = 0;
-                        s = s - 1;
                     }
+                    s = s - 1;
                     break;
                 case "NEG":
                     M[s] = 1 - M[s];
@@ -121,8 +121,8 @@ namespace LPD_VM.VirtualMachineHandler
                     else
                     {
                         M[s - 1] = 0;
-                        s = s - 1;
                     }
+                    s = s - 1;
                     break;
                 case "CMA":
                     if (M[s - 1] > M[s])
@@ -132,8 +132,8 @@ namespace LPD_VM.VirtualMachineHandler
                     else
                     {
                         M[s - 1] = 0;
-                        s = s - 1;
                     }
+                    s = s - 1;
                     break;
                 case "CEQ":
                     if (M[s - 1] == M[s])
@@ -143,8 +143,8 @@ namespace LPD_VM.VirtualMachineHandler
                     else
                     {
                         M[s - 1] = 0;
-                        s = s - 1;
                     }
+                    s = s - 1;
                     break;
                 case "CDIF":
                     if (M[s - 1] != M[s])
@@ -154,8 +154,8 @@ namespace LPD_VM.VirtualMachineHandler
                     else
                     {
                         M[s - 1] = 0;
-                        s = s - 1;
                     }
+                    s = s - 1;
                     break;
                 case "CMEQ":
                     if (M[s - 1] <= M[s])
@@ -165,8 +165,8 @@ namespace LPD_VM.VirtualMachineHandler
                     else
                     {
                         M[s - 1] = 0;
-                        s = s - 1;
                     }
+                    s = s - 1;
                     break;
                 case "CMAQ":
                     if (M[s - 1] >= M[s])
@@ -176,8 +176,8 @@ namespace LPD_VM.VirtualMachineHandler
                     else
                     {
                         M[s - 1] = 0;
-                        s = s - 1;
                     }
+                    s = s - 1;
                     break;
                 case "START":
                     s = -1;
@@ -200,9 +200,9 @@ namespace LPD_VM.VirtualMachineHandler
                     }
                     else
                     {
-                        //i = i + 1;
-                        s = s - 1;
+                        i = i + 1;
                     }
+                    s = s - 1;
                     break;
                 case "NULL":
                     break;
@@ -232,7 +232,7 @@ namespace LPD_VM.VirtualMachineHandler
                     break;
                 case "CALL":
                     s = s + 1;
-                    M[s] = i;
+                    M[s] = i + 1;
                     i = Int32.Parse(instruction.attribute1);
                     break;
                 case "RETURN":
@@ -240,10 +240,10 @@ namespace LPD_VM.VirtualMachineHandler
                     s = s - 1;
                     break;
             }
-            */
-           /* if (instruction.command != "CALL")*/ i++;
-           /* if (RD_PRN_flag == 0) return 0;
-            else */return print;
+            
+            if (instruction.command != "CALL") i++;
+            if (RD_PRN_flag == 0) return 0;
+            else return print;
         }
 
         public void createBreakPoint(int number)

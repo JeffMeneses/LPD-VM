@@ -183,7 +183,7 @@ namespace LPD_VM
 
                     if (print == -1) return;
 
-                    if (print != 0)
+                    if (print != -2)
                     {
                         textBox2.Text += " " + print.ToString();
                     }
