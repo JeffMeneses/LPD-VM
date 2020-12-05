@@ -29,25 +29,94 @@ namespace LPD_VM.InstructionHandler
 
         public void parseInstruction(string assemblyInstruction, int i)
         {
-            string newLine;
-            newLine = FixSpacing(assemblyInstruction);
+            int index = 0;
+            string command = "", param1 = "", param2 = "";
 
-            string[] words = newLine.Split();
-
-            this.i = i;
-            if (newLine[0].Equals(' '))
+            while((assemblyInstruction.Length > index) && Char.IsLetterOrDigit(assemblyInstruction[index]))
             {
-                command = words[1];
-                if (words.Length > 2) attribute1 = words[2];
-                if (words.Length > 3) attribute2 = words[4];
-            }
-            else
-            {
-                labels.Add(new Label(words[0], i));
-                command = words[1];
-                //attribute1 = i;
+                command += assemblyInstruction[index];
+                index++;
             }
 
+            switch (command)
+            {
+                case "ALLOC":
+                case "DALLOC":
+                    // 2 PARAM
+                    index++;
+                    while ((assemblyInstruction.Length > index) && Char.IsDigit(assemblyInstruction[index]))
+                    {
+                        param1 += assemblyInstruction[index];
+                        index++;
+                    }
+                    index++;
+                    while ((assemblyInstruction.Length > index) && Char.IsDigit(assemblyInstruction[index]))
+                    {
+                        param2 += assemblyInstruction[index];
+                        index++;
+                    }
+                        break;
+
+                case "LDC":
+                case "LDV":
+                case "STR":
+                    // 1 PARAM
+                    index++;
+                    while ((assemblyInstruction.Length > index) && Char.IsDigit(assemblyInstruction[index]))
+                    {
+                        param1 += assemblyInstruction[index];
+                        index++;
+                    }
+                    break;
+
+                case "JMP":
+                case "JMPF":
+                case "CALL":
+                    // 1 LABEL
+                    index++;
+                    while ((assemblyInstruction.Length > index) && Char.IsLetterOrDigit(assemblyInstruction[index]))
+                    {
+                        param1 += assemblyInstruction[index];
+                        index++;
+                    }
+                    //addLabel(param1, i);
+                    break;
+
+                case "ADD":
+                case "SUB":
+                case "MULT":
+                case "DIVI":
+                case "INV":
+                case "AND":
+                case "OR":
+                case "NEG":
+                case "CME":
+                case "CMA":
+                case "CEQ":
+                case "CDIF":
+                case "CMEQ":
+                case "CMAQ":
+                case "START":
+                case "HLT":
+                case "RD":
+                case "PRN":
+                case "RETURN":
+                    // 0 PARAM
+                    break;
+                default:
+                    // NULL
+                    index++;
+                    while ((assemblyInstruction.Length > index) && Char.IsLetterOrDigit(assemblyInstruction[index]))
+                    {
+                        param1 += assemblyInstruction[index];
+                        index++;
+                    }
+                    addLabel(command, i);
+                    break;
+            }
+            this.command = command;
+            attribute1 = param1;
+            attribute2 = param2;
         }
 
         public string FixSpacing(string line)
@@ -62,7 +131,7 @@ namespace LPD_VM.InstructionHandler
             return newLine;
         }
 
-        public int getLabelNumber(String labelName)
+        public int getLabelNumber(string labelName)
         {
             foreach(var label in labels)
             {
@@ -72,5 +141,30 @@ namespace LPD_VM.InstructionHandler
             return -1;
         }
 
+        public string getParamNumber(string assemblyInstruction, int index)
+        {
+            string param = "";
+
+            while ((assemblyInstruction.Length > index) && Char.IsDigit(assemblyInstruction[index]))
+            {
+                param += assemblyInstruction[index];
+                index++;
+            }
+            return param;
+        }
+
+        public void addLabel(string label, int line)
+        {
+            int flag = 0;
+
+            foreach(var item in labels)
+            {
+                if (item.name == label) flag = 1;
+            }
+
+            if (flag == 0) labels.Add(new Label(label, line));
+        }
+
+        //public void updateLabelLine()
     }
 }
