@@ -12,7 +12,7 @@ namespace LPD_VM.VirtualMachineHandler
     {
         public List<BreakPoint> breakPointArray = new List<BreakPoint>();
         public List<Instruction> P = new List<Instruction>();
-        public int[] M = new int[50];
+        public int[] M = new int[1000];
         public int i = 0;
         public int s = 0;
 
@@ -217,14 +217,14 @@ namespace LPD_VM.VirtualMachineHandler
                     s = s - 1;
                     break;
                 case "ALLOC":
-                    for (int k = 0; k < Int32.Parse(instruction.attribute2); k++)
+                    for (int k = 0; k <= Int32.Parse(instruction.attribute2) - 1; k++)
                     {
                         s = s + 1;
                         M[s] = M[Int32.Parse(instruction.attribute1) + k];
                     }
                     break;
                 case "DALLOC":
-                    for (int k = Int32.Parse(instruction.attribute2) - 1; k > 0; k--)
+                    for (int k = Int32.Parse(instruction.attribute2) - 1; k >= 0; k--)
                     {
                         M[Int32.Parse(instruction.attribute1) + k] = M[s];
                         s = s - 1;
