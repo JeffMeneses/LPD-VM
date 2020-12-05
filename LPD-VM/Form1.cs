@@ -116,7 +116,7 @@ namespace LPD_VM
 
                 if (virtualMachine.P[virtualMachine.i].command == "RD")
                 {
-                    int input = Int32.Parse(Interaction.InputBox("Prompt", "Title", ""));
+                    int input = Int32.Parse(Interaction.InputBox("Intrução: RD Valor", "Entrada de Dados", ""));
 
                     if (virtualMachine.debugBP(virtualMachine.P[virtualMachine.i]) == 0)
                     {
@@ -166,12 +166,13 @@ namespace LPD_VM
             int print = 0;
             int linha = dataGridView1.CurrentCell.RowIndex;
             int n = dataGridView2.Rows.Add();
+            
 
             if (flag == 1)
             {
                 if (virtualMachine.P[virtualMachine.i].command == "RD")
                 {
-                    int input = Int32.Parse(Interaction.InputBox("Prompt", "Title", ""));
+                    int input = Int32.Parse(Interaction.InputBox("Intrução: RD Valor", "Entrada de Dados", ""));
                     print = virtualMachine.runCommand(virtualMachine.P[virtualMachine.i], input);
 
 
@@ -195,6 +196,7 @@ namespace LPD_VM
                 //
                 dataGridView2.Rows[n].Cells[0].Value = virtualMachine.s;
                 dataGridView2.Rows[n].Cells[1].Value = virtualMachine.i;
+                dataGridView2.Rows[n].Cells[2].Value = virtualMachine.M[virtualMachine.s];
 
                 // selecionar as linhas conforme a execução              
                 linha = virtualMachine.i;

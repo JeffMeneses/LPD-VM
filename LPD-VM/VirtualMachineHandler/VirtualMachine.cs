@@ -185,7 +185,7 @@ namespace LPD_VM.VirtualMachineHandler
                 case "HLT":
                     // TODO: Forçar parada do programa
                     return -1;
-                    break;
+                   // break;
                 case "STR":
                     M[Int32.Parse(instruction.attribute1)] = M[s];
                     s = s - 1;
