@@ -12,7 +12,7 @@ namespace LPD_VM.VirtualMachineHandler
     {
         public List<BreakPoint> breakPointArray = new List<BreakPoint>();
         public List<Instruction> P = new List<Instruction>();
-        public int[] M = new int[1000];
+        public int[] M = new int[100];
         public int i = 0;
         public int s = 0;
 
