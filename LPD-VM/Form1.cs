@@ -63,12 +63,12 @@ namespace LPD_VM
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-
+            //ControlPaint.DrawBorder(e.Graphics, e.ClipRectangle, Color.Green, ButtonBorderStyle.Solid);
         }
 
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
-
+            ControlPaint.DrawBorder(e.Graphics, e.ClipRectangle, Color.Green, ButtonBorderStyle.Dashed);
         }
 
         private void sairToolStripMenuItem_Click(object sender, EventArgs e)
@@ -78,7 +78,7 @@ namespace LPD_VM
 
         private void panel3_Paint(object sender, PaintEventArgs e)
         {
-
+            ControlPaint.DrawBorder(e.Graphics, e.ClipRectangle, Color.Green, ButtonBorderStyle.Dashed);
         }
 
         private void label5_Click(object sender, EventArgs e)
@@ -103,7 +103,7 @@ namespace LPD_VM
 
         private void panel6_Paint(object sender, PaintEventArgs e)
         {
-
+            ControlPaint.DrawBorder(e.Graphics, e.ClipRectangle, Color.Green, ButtonBorderStyle.Dashed);
         }
 
         private void executarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -112,7 +112,7 @@ namespace LPD_VM
 
             if (virtualMachine == null)
             {
-                MessageBox.Show("Não há nenhum arquivo aberto!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Não há nenhum arquivo aberto!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             else
@@ -248,6 +248,11 @@ namespace LPD_VM
         {
 
 
+        }
+
+        private void panel5_Paint(object sender, PaintEventArgs e)
+        {
+            ControlPaint.DrawBorder(e.Graphics, e.ClipRectangle, Color.Green, ButtonBorderStyle.Dashed);
         }
     }
 }
