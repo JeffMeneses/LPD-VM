@@ -12,21 +12,24 @@ namespace LPD_VM.VirtualMachineHandler
     {
         public List<BreakPoint> breakPointArray = new List<BreakPoint>();
         public List<Instruction> P = new List<Instruction>();
-        public int[] M = new int[100];
+        public AssemblyFile assemblyFile = new AssemblyFile();
+        public List<string> assemblyProgram;
+
+        public int[] M = new int[1000];
         public int i = 0;
         public int s = 0;
 
         public void openFile()
-        {
-            AssemblyFile assemblyFile = new AssemblyFile();
-            Instruction instruction = new Instruction();
-            List<Instruction> instructionArray = new List<Instruction>();
-
-            List<string> assemblyProgram;
-
+        {         
             assemblyFile.openAssemblyFile();
             assemblyProgram = assemblyFile.readFile(assemblyFile.name);
             parseInstructions(assemblyProgram);
+        }
+
+        public void resetVirtualMachine()
+        {
+            i = 0;
+            s = 0;
         }
 
         public void parseInstructions(List<string> assemblyProgram)
