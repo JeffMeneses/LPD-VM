@@ -33,7 +33,6 @@
             this.abrirArquivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sairToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.executarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sobreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.I = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Instrução = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -52,12 +51,12 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -72,8 +71,7 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.arquivoToolStripMenuItem,
-            this.executarToolStripMenuItem,
-            this.sobreToolStripMenuItem});
+            this.executarToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(794, 24);
@@ -93,14 +91,14 @@
             // abrirArquivoToolStripMenuItem
             // 
             this.abrirArquivoToolStripMenuItem.Name = "abrirArquivoToolStripMenuItem";
-            this.abrirArquivoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.abrirArquivoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.abrirArquivoToolStripMenuItem.Text = "Abrir arquivo...";
             this.abrirArquivoToolStripMenuItem.Click += new System.EventHandler(this.abrirArquivoToolStripMenuItem_Click);
             // 
             // sairToolStripMenuItem
             // 
             this.sairToolStripMenuItem.Name = "sairToolStripMenuItem";
-            this.sairToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.sairToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.sairToolStripMenuItem.Text = "Sair";
             this.sairToolStripMenuItem.Click += new System.EventHandler(this.sairToolStripMenuItem_Click);
             // 
@@ -110,12 +108,6 @@
             this.executarToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
             this.executarToolStripMenuItem.Text = "Executar";
             this.executarToolStripMenuItem.Click += new System.EventHandler(this.executarToolStripMenuItem_Click);
-            // 
-            // sobreToolStripMenuItem
-            // 
-            this.sobreToolStripMenuItem.Name = "sobreToolStripMenuItem";
-            this.sobreToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
-            this.sobreToolStripMenuItem.Text = "Sobre";
             // 
             // dataGridView1
             // 
@@ -294,6 +286,24 @@
             this.dataGridView2.TabIndex = 1;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "s";
+            this.Column1.Name = "Column1";
+            this.Column1.Width = 45;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "i";
+            this.Column3.Name = "Column3";
+            this.Column3.Width = 45;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Dado";
+            this.Column2.Name = "Column2";
+            this.Column2.Width = 50;
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(10, 260);
@@ -323,24 +333,6 @@
             this.panel2.Size = new System.Drawing.Size(598, 283);
             this.panel2.TabIndex = 4;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "s";
-            this.Column1.Name = "Column1";
-            this.Column1.Width = 45;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "i";
-            this.Column3.Name = "Column3";
-            this.Column3.Width = 45;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Dado";
-            this.Column2.Name = "Column2";
-            this.Column2.Width = 50;
             // 
             // Form1
             // 
@@ -389,7 +381,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ToolStripMenuItem executarToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sobreToolStripMenuItem;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Label label3;
