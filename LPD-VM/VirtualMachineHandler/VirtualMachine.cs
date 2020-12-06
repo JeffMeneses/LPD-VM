@@ -36,6 +36,7 @@ namespace LPD_VM.VirtualMachineHandler
             foreach (var line in assemblyProgram)
             {
                 Instruction instruction = new Instruction();
+                instruction.i = i;
                 instruction.parseInstruction(line, i);
                 P.Add(instruction);
                //debugBP(instruction);

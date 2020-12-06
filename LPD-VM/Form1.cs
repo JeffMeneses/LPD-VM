@@ -116,7 +116,7 @@ namespace LPD_VM
 
                 if (virtualMachine.P[virtualMachine.i].command == "RD")
                 {
-                    int input = Int32.Parse(Interaction.InputBox("Intrução: RD Valor", "Entrada de Dados", ""));
+                    int input = Int32.Parse(Interaction.InputBox("Instrução: RD Valor", "Entrada de Dados", ""));
 
                     if (virtualMachine.debugBP(virtualMachine.P[virtualMachine.i]) == 0)
                     {
