@@ -30,6 +30,7 @@ namespace LPD_VM.VirtualMachineHandler
         {
             i = 0;
             s = 0;
+            P[0].cleanLabels();
         }
 
         public void parseInstructions(List<string> assemblyProgram)
@@ -188,7 +189,7 @@ namespace LPD_VM.VirtualMachineHandler
                     break;
                 case "HLT":
                     // TODO: Forçar parada do programa
-                    return -1;
+                    return -99902;
                    // break;
                 case "STR":
                     M[Int32.Parse(instruction.attribute1)] = M[s];
@@ -246,7 +247,7 @@ namespace LPD_VM.VirtualMachineHandler
             }
 
             if (instruction.command != "JMPF" && instruction.command != "CALL" && instruction.command != "JMP" && instruction.command != "RETURN") i++;
-            if (RD_PRN_flag == 0) return -2;
+            if (RD_PRN_flag == 0) return -99901;
             else return print;
         }
 

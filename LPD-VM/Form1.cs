@@ -32,12 +32,16 @@ namespace LPD_VM
 
         private void abrirArquivoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            int n = 0;
             virtualMachine = new VirtualMachine();
             virtualMachine.openFile();
+            dataGridView1.Rows.Clear();
+            dataGridView1.Refresh();
+            textBox2.Text = "";
 
             foreach (var i in virtualMachine.P)
             {
-                int n = dataGridView1.Rows.Add();
+                n = dataGridView1.Rows.Add();
                 dataGridView1.Rows[n].Cells[0].Value = n;
                 dataGridView1.Rows[n].Cells[1].Value = i.command;
                 dataGridView1.Rows[n].Cells[2].Value = i.attribute1;
@@ -148,9 +152,9 @@ namespace LPD_VM
                     {
                         print = virtualMachine.runCommand(virtualMachine.P[virtualMachine.i]);
 
-                        if (print == -1) break;
+                        if (print == -99902) break;
 
-                        if (print != -2)
+                        if (print != -99901)
                         {
                             textBox2.Text += " " + print.ToString();
                         }
@@ -195,9 +199,9 @@ namespace LPD_VM
                 {
                     print = virtualMachine.runCommand(virtualMachine.P[virtualMachine.i]);
 
-                    if (print == -1) return;
+                    if (print == -99902) return;
 
-                    if (print != -2)
+                    if (print != -99901)
                     {
                         textBox2.Text += " " + print.ToString();
                     }
