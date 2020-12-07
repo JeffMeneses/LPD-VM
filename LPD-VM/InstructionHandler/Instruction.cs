@@ -20,6 +20,11 @@ namespace LPD_VM.InstructionHandler
             
         }
 
+        public void cleanLabels()
+        {
+            labels.Clear();
+        }
+
         public Instruction(int i, string command, string attribute1, string attribute2)
         {
             this.command = command;
